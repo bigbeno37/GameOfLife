@@ -59,13 +59,16 @@ function clearGridAndCreate() {
 }
 
 // Get the specified dimensions of the board
-// TODO: Support YYxZZ and beyond dimensions
 function getXDimension() {
-    return document.getElementById('dimensions').value[0];
+    var toArray = document.getElementById('dimensions').value.split('');
+
+    return toArray.splice(0, toArray.indexOf('x')).join('');
 }
 
 function getYDimension() {
-    return document.getElementById('dimensions').value[2];
+    var toArray = document.getElementById('dimensions').value.split('');
+
+    return toArray.splice(toArray.indexOf('x')+1, toArray.length-1).join('');
 }
 
 // Obtain the amount of alive neighbours next to a cell
@@ -149,10 +152,20 @@ function tick() {
     }
 }
 
+function restartInterval() {
+    clearInterval(tickInterval);
+
+    tickInterval = window.setInterval(function() {
+        if (getElement('start').getAttribute('active') === 'true') {
+            tick();
+        }
+    }, document.getElementById('time').value);
+}
+
 window.onload = createGrid;
 window.onresize = clearGridAndCreate;
-window.setInterval(function() {
+var tickInterval = window.setInterval(function() {
     if (getElement('start').getAttribute('active') === 'true') {
         tick();
     }
-}, 500);
+}, document.getElementById('time').value);

@@ -15,10 +15,23 @@
 <body>
     <div class="container controls">
         <div class="row">
-            <div class="col-4">
+            <div class="col-2">
                 <div class="form-group">
                     <label for="dimensions"></label>
-                    <input type="text" id="dimensions" class="form-control" value="9x9">
+                    <input type="text" id="dimensions" class="form-control" value="9x9" onblur="clearGridAndCreate()">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="time"></label>
+
+                    <div class="input-group">
+                        <input type="text" id="time" class="form-control" value="500" onblur="restartInterval()">
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">ms</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-8 text-right align-self-center">
