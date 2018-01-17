@@ -15,17 +15,15 @@
 <body>
     <div class="container controls">
         <div class="row">
-            <div class="col-8">
+            <div class="col-4">
                 <div class="form-group">
                     <label for="dimensions"></label>
                     <input type="text" id="dimensions" class="form-control" value="9x9">
                 </div>
             </div>
-            <div class="col-2 text-center align-self-center">
-                <a href="#" class="btn btn-success">Run</a>
-            </div>
-            <div class="col-2 text-center align-self-center">
-                <a href="#" class="btn btn-warning">Clear</a>
+            <div class="col-8 text-right align-self-center">
+                <a href="#" class="btn btn-success start" onclick="start()" active="false">Start</a>
+                <a href="#" class="btn btn-warning" onclick="clearGridAndCreate()">Clear</a>
             </div>
         </div>
     </div>
