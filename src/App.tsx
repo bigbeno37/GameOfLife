@@ -1,38 +1,66 @@
-import {useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
+
+type Cell = boolean
+
+type Row = Cell[];
+type Board = Row[];
 
 export const App = () => {
-	const [count, setCount] = useState(0);
+	const [boardXValue, setBoardXValue] = useState('9');
+	const boardX = useMemo(() => Number.parseInt(boardXValue), [boardXValue]);
 
-	return <div className="App">
-		<header className="App-header">
-			<p className="text-red-600">Hello Vite + React!</p>
-			<p>
-				<button type="button" onClick={() => setCount((count) => count + 1)}>
-					count is: {count}
-				</button>
-			</p>
-			<p>
-				Edit <code>App.tsx</code> and save to test HMR updates.
-			</p>
-			<p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				{' | '}
-				<a
-					className="App-link"
-					href="https://vitejs.dev/guide/features.html"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Vite Docs
-				</a>
-			</p>
-		</header>
+	const [boardYValue, setBoardYValue] = useState('9');
+	const boardY = useMemo(() => Number.parseInt(boardYValue), [boardYValue]);
+
+	const [running, setRunning] = useState(false);
+
+	const [iterationsPerSecondValue, setIterationsPerSecondValue] = useState('2');
+	const iterationsPerSecond = Number.parseInt(iterationsPerSecondValue);
+
+	const [board, setBoard] = useState<Board>([]);
+
+	useEffect(() => {
+		const constructedBoard: Row[] = [];
+
+		for (let rowIndex = 0; rowIndex < boardY; rowIndex++) {
+			const row: Cell[] = [];
+
+			for (let columnIndex = 0; columnIndex < boardX; columnIndex++) {
+				row.push(false);
+			}
+
+			constructedBoard.push(row);
+		}
+
+		setBoard(constructedBoard);
+	}, [boardY, boardX]);
+
+	return <div className="h-full flex flex-col">
+		<nav className="flex flex-row justify-between items-center h-12 bg-gray-400 px-4">
+			<div>
+				<span>Board:
+					<input type="number" className={`ml-2 w-16 ${isNaN(boardX) && 'border border-red-600'}`} value={boardXValue} onChange={e => setBoardXValue(e.target.value)}/>
+					<span className="mx-2">by</span>
+					<input type="number" className={`w-16 ${isNaN(boardY) && 'border border-red-600'}`} value={boardY} onChange={e => setBoardYValue(e.target.value)}/>
+				</span>
+			</div>
+			<div>
+				<button onClick={() => setRunning(!running)}>{running ? 'Stop' : 'Play'}</button>
+				<button className="mx-8">Tick</button>
+				<button>Clear</button>
+			</div>
+			<div>
+				<input type="number" className={`w-16 ${isNaN(iterationsPerSecond) && 'border border-red-600'}`} value={iterationsPerSecondValue} onChange={e => setIterationsPerSecondValue(e.target.value)}/> iterations every second
+			</div>
+		</nav>
+		<div className="flex-grow flex flex-col">
+			{board.map((row, index) => (
+				<div key={index} className="w-full flex flex-row grow">
+					{row.map((cell, cellIndex) => (
+						<div key={`${index}-${cellIndex}`} className={`border border-black grow ${cell && 'bg-black'}`}/>
+					))}
+				</div>
+			))}
+		</div>
 	</div>;
 };
