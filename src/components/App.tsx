@@ -1,4 +1,5 @@
 import {useEffect, useMemo, useState} from 'react';
+import {Navbar} from './Navbar';
 
 type Cell = boolean
 
@@ -21,6 +22,8 @@ export const App = () => {
 
 	// IDEA: Instead of destroying board, add new columns / rows while retaining existing data
 	useEffect(() => {
+		if (!boardX || !boardY) return;
+
 		const constructedBoard: Row[] = [];
 
 		for (let rowIndex = 0; rowIndex < boardY; rowIndex++) {
@@ -47,23 +50,12 @@ export const App = () => {
 	};
 
 	return <div className="h-full flex flex-col">
-		<nav className="flex flex-row justify-between items-center h-12 bg-gray-400 px-4">
-			<div>
-				<span>Board:
-					<input type="number" className={`ml-2 w-16 ${isNaN(boardX) && 'border border-red-600'}`} value={boardXValue} onChange={e => setBoardXValue(e.target.value)}/>
-					<span className="mx-2">by</span>
-					<input type="number" className={`w-16 ${isNaN(boardY) && 'border border-red-600'}`} value={boardY} onChange={e => setBoardYValue(e.target.value)}/>
-				</span>
-			</div>
-			<div>
-				<button onClick={() => setRunning(!running)}>{running ? 'Stop' : 'Play'}</button>
-				<button className="mx-8">Tick</button>
-				<button>Clear</button>
-			</div>
-			<div>
-				<input type="number" className={`w-16 ${isNaN(iterationsPerSecond) && 'border border-red-600'}`} value={iterationsPerSecondValue} onChange={e => setIterationsPerSecondValue(e.target.value)}/> iterations every second
-			</div>
-		</nav>
+		<Navbar
+			boardX={{ value: boardXValue, setValue: setBoardXValue, invalid: isNaN(boardX) }}
+			boardY={{ value: boardYValue, setValue: setBoardYValue, invalid: isNaN(boardY) }}
+			running={{ value: running, toggle: () => setRunning(!running) }}
+			iterationsPerSecond={{ value: iterationsPerSecondValue, setValue: setIterationsPerSecondValue, invalid: isNaN(iterationsPerSecond) }}
+		/>
 		<div className="flex-grow flex flex-col">
 			{board.map((row, rowIndex) => (
 				<div key={rowIndex} className="w-full flex flex-row grow">
