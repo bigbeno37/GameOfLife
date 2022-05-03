@@ -19,6 +19,7 @@ export const App = () => {
 
 	const [board, setBoard] = useState<Board>([]);
 
+	// IDEA: Instead of destroying board, add new columns / rows while retaining existing data
 	useEffect(() => {
 		const constructedBoard: Row[] = [];
 
@@ -34,6 +35,16 @@ export const App = () => {
 
 		setBoard(constructedBoard);
 	}, [boardY, boardX]);
+
+	const toggleCell = (row: number, cellIndex: number) => {
+		const boardClone = [...board];
+		const rowClone = [...boardClone[row]];
+
+		rowClone[cellIndex] = !rowClone[cellIndex];
+		boardClone[row] = rowClone;
+
+		setBoard(boardClone);
+	};
 
 	return <div className="h-full flex flex-col">
 		<nav className="flex flex-row justify-between items-center h-12 bg-gray-400 px-4">
@@ -54,10 +65,10 @@ export const App = () => {
 			</div>
 		</nav>
 		<div className="flex-grow flex flex-col">
-			{board.map((row, index) => (
-				<div key={index} className="w-full flex flex-row grow">
+			{board.map((row, rowIndex) => (
+				<div key={rowIndex} className="w-full flex flex-row grow">
 					{row.map((cell, cellIndex) => (
-						<div key={`${index}-${cellIndex}`} className={`border border-black grow ${cell && 'bg-black'}`}/>
+						<div key={`${rowIndex}-${cellIndex}`} className={`border border-black grow ${cell && 'bg-black'}`} onClick={() => toggleCell(rowIndex, cellIndex)}/>
 					))}
 				</div>
 			))}
