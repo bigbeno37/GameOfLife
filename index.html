@@ -1,54 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="style.css">
-
-    <title>Game of Life!</title>
-</head>
-<body>
-    <div class="container controls">
-        <div class="row">
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="dimensions"></label>
-                    <input type="text" id="dimensions" class="form-control" value="9x9" onblur="clearGridAndCreate()">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="time"></label>
-
-                    <div class="input-group">
-                        <input type="text" id="time" class="form-control" value="500" onblur="restartInterval()">
-
-                        <div class="input-group-append">
-                            <div class="input-group-text">ms</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 text-right align-self-center">
-                <a href="#" class="btn btn-success start" onclick="start()" active="false">Start</a>
-                <a href="#" class="btn btn-warning" onclick="clearGridAndCreate()">Clear</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="grid"></div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-
-    <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
