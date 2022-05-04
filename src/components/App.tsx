@@ -11,14 +11,7 @@ export const App = () => {
 	const [boardYValue, setBoardYValue] = useState('9');
 	const boardY = useMemo(() => Number.parseInt(boardYValue), [boardYValue]);
 
-	const [running, setRunning] = useState(false);
-
-	const [iterationsPerSecondValue, setIterationsPerSecondValue] = useState('2');
-	const iterationsPerSecond = Number.parseInt(iterationsPerSecondValue);
-
 	const [board, setBoard] = useState<BoardType>([]);
-
-	const clearBoard = () => setBoard(generateEmptyBoard(boardY, boardX));
 
 	// IDEA: Instead of destroying board, add new columns / rows while retaining existing data
 	useEffect(() => {
@@ -26,14 +19,29 @@ export const App = () => {
 
 		clearBoard();
 	}, [boardY, boardX]);
+
+	const clearBoard = () => setBoard(generateEmptyBoard(boardY, boardX));
 	
 	const handleTick = () => {
 		setBoard(getBoardAfterGeneration);
 	};
 
 	const toggleCell = (rowIndex: number, cellIndex: number) => {
-		setBoard(getBoardAfterCellToggle(board, rowIndex, cellIndex));
+		setBoard(getBoardAfterCellToggle(board, cellIndex, rowIndex));
 	};
+
+	const [running, setRunning] = useState(false);
+
+	const [iterationsPerSecondValue, setIterationsPerSecondValue] = useState('2');
+	const iterationsPerSecond = Number.parseInt(iterationsPerSecondValue);
+
+	useEffect(() => {
+		if (!running || isNaN(iterationsPerSecond)) return;
+
+		const interval = setInterval(handleTick, 1000/iterationsPerSecond);
+
+		return () => clearInterval(interval);
+	}, [running, iterationsPerSecond]);
 
 	return <div className="h-full flex flex-col">
 		<Navbar
