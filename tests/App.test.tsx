@@ -16,18 +16,18 @@ const getCell = (cellIndex: number, rowIndex: number) => screen.getByTestId(`${c
 const isAlive = (cellIndex: number, rowIndex: number) => getCell(cellIndex, rowIndex).classList.contains('bg-black');
 const click = userEvent.click;
 const toggleCell = (cellIndex: number, rowIndex: number) => click(getCell(cellIndex, rowIndex));
-const tick = () => click(screen.getByText('Tick'));
+const tick = () => click(screen.getByTitle('Tick'));
 
 it('changes from start to stop after clicking play button', async () => {
-	expect(screen.queryByText('Stop')).toBeNull();
+	expect(screen.queryByTitle('Stop')).toBeNull();
 
-	await click(screen.getByText('Play'));
+	await click(screen.getByTitle('Play'));
 
-	expect(screen.queryByText('Play')).toBeNull();
-	const stopButton = screen.getByText('Stop');
+	expect(screen.queryByTitle('Play')).toBeNull();
+	const stopButton = screen.getByTitle('Stop');
 
 	await click(stopButton);
-	screen.getByText('Play');
+	screen.getByTitle('Play');
 });
 
 it('allows cells to be toggled with a click', async () => {
@@ -46,7 +46,7 @@ it('can clear the board by clicking clear', async () => {
 	await toggleCell(0, 0);
 	expect(isAlive(0, 0)).toBeTruthy();
 
-	await click(screen.getByText('Clear'));
+	await click(screen.getByTitle('Clear'));
 
 	expect(isAlive(0, 0)).toBeFalsy();
 });

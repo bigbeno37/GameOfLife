@@ -1,3 +1,5 @@
+import {PlayerPlay, PlayerStop, PlayerTrackNext, Trash} from 'tabler-icons-react';
+
 type NavbarProps = {
 	boardX: {
 		invalid: boolean,
@@ -23,7 +25,7 @@ type NavbarProps = {
 };
 
 export const Navbar = ({boardX, boardY, running, onTick, onClear, iterationsPerSecond}: NavbarProps) => {
-	return <nav className="flex flex-row justify-between items-center h-12 bg-gray-400 px-4">
+	return <nav className="flex flex-row justify-between items-center h-16 bg-gray-400 px-4">
 		<div>
 			<span>Board:
 				<input
@@ -41,10 +43,28 @@ export const Navbar = ({boardX, boardY, running, onTick, onClear, iterationsPerS
 				/>
 			</span>
 		</div>
-		<div>
-			<button onClick={running.toggle}>{running.value ? 'Stop' : 'Play'}</button>
-			<button className="mx-8" onClick={onTick}>Tick</button>
-			<button onClick={onClear}>Clear</button>
+		<div className="flex flex-row justify-center">
+			<button
+				className="p-3 rounded bg-orange-600 hover:bg-orange-700 text-white"
+				onClick={onTick}
+				title="Tick"
+			>
+				<PlayerTrackNext />
+			</button>
+			<button
+				className="mx-8 p-3 rounded bg-green-600 hover:bg-green-700 text-white"
+				onClick={running.toggle}
+				title={running.value ? 'Stop' : 'Play'}
+			>
+				{running.value ? <PlayerStop /> : <PlayerPlay />}
+			</button>
+			<button
+				className="p-3 text-center rounded bg-red-600 hover:bg-red-700 text-white"
+				onClick={onClear}
+				title="Clear"
+			>
+				<Trash />
+			</button>
 		</div>
 		<div>
 			<input
