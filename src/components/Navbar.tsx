@@ -1,4 +1,4 @@
-import {PlayerPlay, PlayerStop, PlayerTrackNext, Trash} from 'tabler-icons-react';
+import {PlayerPause, PlayerPlay, PlayerTrackNext, Trash} from 'tabler-icons-react';
 
 type NavbarProps = {
 	boardX: {
@@ -56,7 +56,7 @@ export const Navbar = ({boardX, boardY, running, onTick, onClear, iterationsPerS
 				onClick={running.toggle}
 				title={running.value ? 'Stop' : 'Play'}
 			>
-				{running.value ? <PlayerStop /> : <PlayerPlay />}
+				{running.value ? <PlayerPause /> : <PlayerPlay />}
 			</button>
 			<button
 				className="p-3 text-center rounded bg-red-600 hover:bg-red-700 text-white"
