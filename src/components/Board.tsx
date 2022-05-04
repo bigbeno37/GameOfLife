@@ -13,7 +13,7 @@ export const Board = ({board, toggleCell}: BoardProps) => {
 					<div
 						key={`${cellIndex}-${rowIndex}`}
 						data-testid={`${cellIndex}-${rowIndex}`}
-						className={`border border-black grow ${cell && 'bg-black'}`}
+						className={`border border-black grow cursor-pointer ${cell ? 'bg-black hover:bg-gray-800' : 'hover:bg-gray-200'}`}
 						onClick={() => toggleCell(rowIndex, cellIndex)}
 					/>
 				))}
