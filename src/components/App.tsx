@@ -36,6 +36,53 @@ export const App = () => {
 		setBoard(constructedBoard);
 	}, [boardY, boardX]);
 
+	const getNeighbours = (cellIndex: number, rowIndex: number): number => {
+		let neighbours = 0;
+		for (let y = -1; y <= 1; y++) {
+			const newY = rowIndex + y;
+			
+			if (newY < 0 || newY >= boardY) continue;
+			
+			for (let x = -1; x <= 1; x++) {
+				const newX = cellIndex + x;
+				
+				// We're not gonna count a cell as a neighbour of itself...
+				if (newY === 0 && newX === 0) continue;
+				
+				if (newX < 0 || newX >= boardX) continue;
+				
+				if (board[newY][newX]) neighbours++;
+			}
+		}
+		
+		return neighbours;
+	};
+	
+	const handleTick = () => {
+		const newBoard: BoardType = [];
+		
+		board.forEach((row, rowIndex) => {
+			const newRow: Row = [];
+			
+			row.forEach((cell, cellIndex) => {
+				const neighbours = getNeighbours(cellIndex, rowIndex);
+				
+				const isAliveAndNotOverpopulated = cell && (neighbours === 2 || neighbours === 3);
+				const isDeadAndNextToThreeNeighbours = !cell && neighbours === 3; 
+				
+				if (isAliveAndNotOverpopulated || isDeadAndNextToThreeNeighbours) {
+					newRow.push(true);
+				} else {
+					newRow.push(false);
+				}
+			});
+			
+			newBoard.push(newRow);
+		});
+
+		setBoard(newBoard);
+	};
+
 	const toggleCell = (row: number, cellIndex: number) => {
 		const boardClone = [...board];
 		const rowClone = [...boardClone[row]];
@@ -51,6 +98,7 @@ export const App = () => {
 			boardX={{ value: boardXValue, setValue: setBoardXValue, invalid: isNaN(boardX) }}
 			boardY={{ value: boardYValue, setValue: setBoardYValue, invalid: isNaN(boardY) }}
 			running={{ value: running, toggle: () => setRunning(!running) }}
+			onTick={handleTick}
 			iterationsPerSecond={{ value: iterationsPerSecondValue, setValue: setIterationsPerSecondValue, invalid: isNaN(iterationsPerSecond) }}
 		/>
 		<Board board={board} toggleCell={toggleCell} />
