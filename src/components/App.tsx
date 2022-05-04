@@ -3,6 +3,22 @@ import {Navbar} from './Navbar';
 import {Board} from './Board';
 import type {Board as BoardType, Cell, Row} from '../types';
 
+const generateEmptyBoard = (rows: number, columns: number) => {
+	const constructedBoard: Row[] = [];
+
+	for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+		const row: Cell[] = [];
+
+		for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
+			row.push(false);
+		}
+
+		constructedBoard.push(row);
+	}
+
+	return constructedBoard;
+};
+
 export const App = () => {
 	const [boardXValue, setBoardXValue] = useState('9');
 	const boardX = useMemo(() => Number.parseInt(boardXValue), [boardXValue]);
@@ -17,23 +33,13 @@ export const App = () => {
 
 	const [board, setBoard] = useState<BoardType>([]);
 
+	const clearBoard = () => setBoard(generateEmptyBoard(boardY, boardX));
+
 	// IDEA: Instead of destroying board, add new columns / rows while retaining existing data
 	useEffect(() => {
 		if (!boardX || !boardY) return;
 
-		const constructedBoard: Row[] = [];
-
-		for (let rowIndex = 0; rowIndex < boardY; rowIndex++) {
-			const row: Cell[] = [];
-
-			for (let columnIndex = 0; columnIndex < boardX; columnIndex++) {
-				row.push(false);
-			}
-
-			constructedBoard.push(row);
-		}
-
-		setBoard(constructedBoard);
+		clearBoard();
 	}, [boardY, boardX]);
 
 	const getNeighbours = (cellIndex: number, rowIndex: number): number => {
@@ -99,6 +105,7 @@ export const App = () => {
 			boardY={{ value: boardYValue, setValue: setBoardYValue, invalid: isNaN(boardY) }}
 			running={{ value: running, toggle: () => setRunning(!running) }}
 			onTick={handleTick}
+			onClear={clearBoard}
 			iterationsPerSecond={{ value: iterationsPerSecondValue, setValue: setIterationsPerSecondValue, invalid: isNaN(iterationsPerSecond) }}
 		/>
 		<Board board={board} toggleCell={toggleCell} />

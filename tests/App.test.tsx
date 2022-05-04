@@ -1,10 +1,14 @@
 import React from 'react';
-import {expect, it, afterEach, test} from 'vitest';
+import {expect, it, afterEach, test, beforeEach} from 'vitest';
 import {cleanup, render, screen} from '@testing-library/react';
 import {App} from '../src/components/App';
 import userEvent from '@testing-library/user-event';
 
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
+
+beforeEach(() => {
+	render(<App />);
+});
 
 afterEach(cleanup);
 
@@ -15,8 +19,6 @@ const toggleCell = (cellIndex: number, rowIndex: number) => click(getCell(cellIn
 const tick = () => click(screen.getByText('Tick'));
 
 it('changes from start to stop after clicking play button', async () => {
-	render(<App />);
-
 	expect(screen.queryByText('Stop')).toBeNull();
 
 	await click(screen.getByText('Play'));
@@ -29,8 +31,6 @@ it('changes from start to stop after clicking play button', async () => {
 });
 
 it('allows cells to be toggled with a click', async () => {
-	render(<App />);
-
 	expect(isAlive(0, 0)).toBeFalsy();
 
 	await toggleCell(0, 0);
@@ -42,9 +42,16 @@ it('allows cells to be toggled with a click', async () => {
 	expect(isAlive(0, 0)).toBeFalsy();
 });
 
-test('a cell without any neighbours dies', async () => {
-	render(<App />);
+it('can clear the board by clicking clear', async () => {
+	await toggleCell(0, 0);
+	expect(isAlive(0, 0)).toBeTruthy();
 
+	await click(screen.getByText('Clear'));
+
+	expect(isAlive(0, 0)).toBeFalsy();
+});
+
+test('a cell without any neighbours dies', async () => {
 	await toggleCell(0, 0);
 	expect(isAlive(0, 0)).toBeTruthy();
 
@@ -53,8 +60,6 @@ test('a cell without any neighbours dies', async () => {
 });
 
 test('a cell with two neighbours survives', async () => {
-	render(<App />);
-
 	await toggleCell(0, 0);
 	await toggleCell(0, 1);
 	await toggleCell(1, 0);

@@ -14,6 +14,7 @@ type NavbarProps = {
 		toggle: () => void
 	},
 	onTick: () => void,
+	onClear: () => void,
 	iterationsPerSecond: {
 		invalid: boolean,
 		value: string,
@@ -21,7 +22,7 @@ type NavbarProps = {
 	}
 };
 
-export const Navbar = ({boardX, boardY, running, onTick, iterationsPerSecond}: NavbarProps) => {
+export const Navbar = ({boardX, boardY, running, onTick, onClear, iterationsPerSecond}: NavbarProps) => {
 	return <nav className="flex flex-row justify-between items-center h-12 bg-gray-400 px-4">
 		<div>
 			<span>Board:
@@ -43,7 +44,7 @@ export const Navbar = ({boardX, boardY, running, onTick, iterationsPerSecond}: N
 		<div>
 			<button onClick={running.toggle}>{running.value ? 'Stop' : 'Play'}</button>
 			<button className="mx-8" onClick={onTick}>Tick</button>
-			<button>Clear</button>
+			<button onClick={onClear}>Clear</button>
 		</div>
 		<div>
 			<input
