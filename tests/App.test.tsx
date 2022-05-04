@@ -70,3 +70,22 @@ test('a cell with two neighbours survives', async () => {
 
 	expect(isAlive(0, 0)).toBeTruthy();
 });
+
+test('a cell with three neighbours survives', async () => {
+	await toggleCell(1, 1);
+	await toggleCell(1, 2);
+	await toggleCell(2, 1);
+	await toggleCell(2, 2);
+
+	expect(isAlive(1, 1)).toBeTruthy();
+	expect(isAlive(1, 2)).toBeTruthy();
+	expect(isAlive(2, 1)).toBeTruthy();
+	expect(isAlive(2, 2)).toBeTruthy();
+
+	await tick();
+
+	expect(isAlive(1, 1)).toBeTruthy();
+	expect(isAlive(1, 2)).toBeTruthy();
+	expect(isAlive(2, 1)).toBeTruthy();
+	expect(isAlive(2, 2)).toBeTruthy();
+});

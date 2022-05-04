@@ -27,10 +27,10 @@ export const getNeighbours = (board: BoardType, cellIndex: number, rowIndex: num
 		if (newY < 0 || newY >= maxY) continue;
 
 		for (let x = -1; x <= 1; x++) {
-			const newX = cellIndex + x;
-
 			// We're not gonna count a cell as a neighbour of itself...
-			if (newY === 0 && newX === 0) continue;
+			if (y === 0 && x === 0) continue;
+
+			const newX = cellIndex + x;
 
 			if (newX < 0 || newX >= maxX) continue;
 
