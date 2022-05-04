@@ -1,10 +1,7 @@
 import {useEffect, useMemo, useState} from 'react';
 import {Navbar} from './Navbar';
-
-type Cell = boolean
-
-type Row = Cell[];
-type Board = Row[];
+import {Board} from './Board';
+import type {Board as BoardType, Cell, Row} from '../types';
 
 export const App = () => {
 	const [boardXValue, setBoardXValue] = useState('9');
@@ -18,7 +15,7 @@ export const App = () => {
 	const [iterationsPerSecondValue, setIterationsPerSecondValue] = useState('2');
 	const iterationsPerSecond = Number.parseInt(iterationsPerSecondValue);
 
-	const [board, setBoard] = useState<Board>([]);
+	const [board, setBoard] = useState<BoardType>([]);
 
 	// IDEA: Instead of destroying board, add new columns / rows while retaining existing data
 	useEffect(() => {
@@ -56,14 +53,6 @@ export const App = () => {
 			running={{ value: running, toggle: () => setRunning(!running) }}
 			iterationsPerSecond={{ value: iterationsPerSecondValue, setValue: setIterationsPerSecondValue, invalid: isNaN(iterationsPerSecond) }}
 		/>
-		<div className="flex-grow flex flex-col">
-			{board.map((row, rowIndex) => (
-				<div key={rowIndex} className="w-full flex flex-row grow">
-					{row.map((cell, cellIndex) => (
-						<div key={`${rowIndex}-${cellIndex}`} className={`border border-black grow ${cell && 'bg-black'}`} onClick={() => toggleCell(rowIndex, cellIndex)}/>
-					))}
-				</div>
-			))}
-		</div>
+		<Board board={board} toggleCell={toggleCell} />
 	</div>;
 };
