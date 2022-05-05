@@ -32,6 +32,42 @@ it('changes from start to stop after clicking play button', async () => {
 	screen.getByTitle('Play');
 });
 
+it('can increment and decrement board columns', async () => {
+	expect(screen.getAllByText('9')).toHaveLength(2);
+	expect(screen.queryByText('10')).toBeNull();
+	expect(screen.queryByTestId('9-8')).toBeNull();
+
+	await click(screen.getByTitle('Increment board columns'));
+
+	screen.getByTestId('9-8');
+	screen.getByText('10');
+	screen.getByText('9');
+
+	await click(screen.getByTitle('Decrement board columns'));
+
+	expect(screen.queryByTestId('9-8')).toBeNull();
+	expect(screen.getAllByText('9')).toHaveLength(2);
+	expect(screen.queryByText('10')).toBeNull();
+});
+
+it('can increment and decrement board rows', async () => {
+	expect(screen.getAllByText('9')).toHaveLength(2);
+	expect(screen.queryByText('10')).toBeNull();
+	expect(screen.queryByTestId('8-9')).toBeNull();
+
+	await click(screen.getByTitle('Increment board rows'));
+
+	screen.getByTestId('8-9');
+	screen.getByText('10');
+	screen.getByText('9');
+
+	await click(screen.getByTitle('Decrement board rows'));
+
+	expect(screen.queryByTestId('8-9')).toBeNull();
+	expect(screen.getAllByText('9')).toHaveLength(2);
+	expect(screen.queryByText('10')).toBeNull();
+});
+
 it('allows cells to be toggled with a click', async () => {
 	expect(isAlive(0, 0)).toBeFalsy();
 
