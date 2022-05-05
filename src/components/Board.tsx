@@ -1,11 +1,11 @@
-import type { Board as BoardType } from '../types';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store/store';
+import {BoardActions} from '../store/BoardSlice';
 
-export type BoardProps = {
-	board: BoardType,
-	toggleCell: (rowIndex: number, cellIndex: number) => void
-};
+export const Board = () => {
+	const board = useSelector((state: RootState) => state.board.value);
+	const dispatch = useDispatch();
 
-export const Board = ({board, toggleCell}: BoardProps) => {
 	return <div className="flex-grow flex flex-col">
 		{board.map((row, rowIndex) => (
 			<div key={rowIndex} className="w-full flex flex-row grow">
@@ -14,7 +14,7 @@ export const Board = ({board, toggleCell}: BoardProps) => {
 						key={`${cellIndex}-${rowIndex}`}
 						data-testid={`${cellIndex}-${rowIndex}`}
 						className={`border border-black grow cursor-pointer ${cell ? 'bg-black hover:bg-gray-800' : 'hover:bg-gray-200'}`}
-						onClick={() => toggleCell(rowIndex, cellIndex)}
+						onClick={() => dispatch(BoardActions.toggleCell({ cellIndex, rowIndex }))}
 					/>
 				))}
 			</div>

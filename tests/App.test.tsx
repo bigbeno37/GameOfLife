@@ -3,11 +3,13 @@ import {expect, it, afterEach, test, beforeEach} from 'vitest';
 import {cleanup, render, screen} from '@testing-library/react';
 import {App} from '../src/components/App';
 import userEvent from '@testing-library/user-event';
+import {createAppStore} from '../src/store/store';
+import { Provider } from 'react-redux';
 
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
 
 beforeEach(() => {
-	render(<App />);
+	render(<Provider store={createAppStore()}><App /></Provider>);
 });
 
 afterEach(cleanup);
