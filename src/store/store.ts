@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {BoardReducer} from './BoardSlice';
 import {GameReducer} from './GameSlice';
+import {WindowReducer} from './WindowSlice';
 
 export const createAppStore = () => configureStore({
 	reducer: {
 		board: BoardReducer,
-		game: GameReducer
+		game: GameReducer,
+		window: WindowReducer
 	}
 });
 
