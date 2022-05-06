@@ -6,7 +6,7 @@ export const Board = () => {
 	const board = useSelector((state: RootState) => state.board.value);
 	const dispatch = useDispatch();
 
-	return <div className="flex-grow flex flex-col">
+	return <div className="flex-grow flex flex-col bg-white">
 		{board.map((row, rowIndex) => (
 			<div key={rowIndex} className="w-full flex flex-row grow">
 				{row.map((cell, cellIndex) => (

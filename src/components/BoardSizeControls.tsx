@@ -8,19 +8,19 @@ export const BoardSizeControls = () => {
 	const boardY = useSelector((state: RootState) => state.board.size.y);
 	const dispatch = useDispatch();
 
-	return <>
+	return <div className="flex flex-row">
 		<NumberModifier
 			title="board columns"
 			value={boardX}
 			increment={() => dispatch(BoardActions.incrementX())}
 			decrement={() => dispatch(BoardActions.decrementX())}
 		/>
-		<span className="mx-4 relative top-0.5">by</span>
+		<span className="mx-8 text-white text-xl self-center">by</span>
 		<NumberModifier
 			title="board rows"
 			value={boardY}
 			increment={() => dispatch(BoardActions.incrementY())}
 			decrement={() => dispatch(BoardActions.decrementY())}
 		/>
-	</>;
+	</div>;
 };

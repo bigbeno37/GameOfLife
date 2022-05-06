@@ -68,6 +68,24 @@ it('can increment and decrement board rows', async () => {
 	expect(screen.queryByText('10')).toBeNull();
 });
 
+it('can increment and decrement playback rate', async () => {
+	expect(screen.queryByText('2')).toBeNull();
+
+	await click(screen.getByTitle('Increment updates per second'));
+
+	screen.getByText('2');
+	expect(screen.queryByText('1')).toBeNull();
+
+	await click(screen.getByTitle('Decrement updates per second'));
+
+	screen.getByText('1');
+	expect(screen.queryByText('2')).toBeNull();
+});
+
+it('disables the decrement playback rate button if the playback rate is 1', () => {
+	expect((screen.getByTitle('Decrement updates per second') as HTMLButtonElement).disabled).toBeTruthy();
+});
+
 it('allows cells to be toggled with a click', async () => {
 	expect(isAlive(0, 0)).toBeFalsy();
 

@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export const initialState = {
-	running: false
+	running: false,
+	playbackRate: 1
 };
 
 export const GameSlice = createSlice({
@@ -10,6 +11,12 @@ export const GameSlice = createSlice({
 	reducers: {
 		toggleRunning: state => {
 			state.running = !state.running;
+		},
+		incrementPlaybackRate: state => {
+			state.playbackRate++;
+		},
+		decrementPlaybackRate: state => {
+			state.playbackRate -= state.playbackRate > 0 ? 1 : 0;
 		}
 	}
 });
