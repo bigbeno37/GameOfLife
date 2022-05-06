@@ -11,21 +11,21 @@ export const BoardControls = () => {
 
 	return <>
 		<button
-			className="p-3 rounded bg-orange-600 hover:bg-orange-700 text-white"
+			className="btn btn-secondary"
 			onClick={() => dispatch(BoardActions.tick())}
 			title="Tick"
 		>
 			<PlayerTrackNext />
 		</button>
 		<button
-			className="mx-8 p-3 rounded bg-green-600 hover:bg-green-700 text-white"
+			className="mx-8 btn btn-primary"
 			onClick={() => dispatch(GameActions.toggleRunning())}
 			title={running ? 'Stop' : 'Play'}
 		>
 			{running ? <PlayerPause /> : <PlayerPlay />}
 		</button>
 		<button
-			className="p-3 text-center rounded bg-red-600 hover:bg-red-700 text-white"
+			className="btn btn-accent"
 			onClick={() => dispatch(BoardActions.clear())}
 			title="Clear"
 		>
