@@ -1,8 +1,8 @@
 import {BoardActions} from '../store/BoardSlice';
-import {PlayerPause, PlayerPlay, PlayerTrackNext, Trash} from 'tabler-icons-react';
 import {GameActions} from '../store/GameSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
+import {FiChevronsRight, FiPause, FiPlay, FiTrash} from 'react-icons/fi';
 
 /**
  * Handles the controls of the board, i.e. tick, play / pause and clear buttons.
@@ -14,25 +14,25 @@ export const BoardControls = () => {
 
 	return <div className="flex flex-row justify-center">
 		<button
-			className="btn btn-secondary"
+			className="btn btn-secondary text-2xl"
 			onClick={() => dispatch(BoardActions.tick())}
 			title="Tick"
 		>
-			<PlayerTrackNext />
+			<FiChevronsRight />
 		</button>
 		<button
-			className="mx-8 btn btn-primary"
+			className="mx-8 btn btn-primary text-2xl"
 			onClick={() => dispatch(GameActions.toggleRunning())}
 			title={running ? 'Stop' : 'Play'}
 		>
-			{running ? <PlayerPause /> : <PlayerPlay />}
+			{running ? <FiPause /> : <FiPlay />}
 		</button>
 		<button
-			className="btn btn-accent"
+			className="btn btn-accent text-2xl"
 			onClick={() => dispatch(BoardActions.clear())}
 			title="Clear"
 		>
-			<Trash />
+			<FiTrash />
 		</button>
 	</div>;
 };

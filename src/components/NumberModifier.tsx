@@ -1,4 +1,4 @@
-import {Minus, Plus} from 'tabler-icons-react';
+import {FiMinus, FiPlus} from 'react-icons/fi';
 
 type NumberModifierProps = {
 	/**
@@ -37,12 +37,12 @@ type NumberModifierProps = {
 export const NumberModifier = ({ title, value, minimum, increment, decrement }: NumberModifierProps) =>
 	<div className="flex flex-row justify-center">
 		<button
-			className="btn btn-primary"
+			className="btn btn-primary text-2xl"
 			title={`Decrement ${title}`}
 			onClick={decrement}
 			disabled={value <= (minimum ?? 1)}
 		>
-			<Minus />
+			<FiMinus />
 		</button>
 		<span
 			className="text-2xl mx-1 lg:mx-4 text-white self-center"
@@ -51,10 +51,10 @@ export const NumberModifier = ({ title, value, minimum, increment, decrement }: 
 			{value}
 		</span>
 		<button
-			className="btn btn-primary"
+			className="btn btn-primary text-2xl"
 			title={`Increment ${title}`}
 			onClick={increment}
 		>
-			<Plus />
+			<FiPlus />
 		</button>
 	</div>;
