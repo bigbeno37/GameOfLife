@@ -4,6 +4,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
 import {BoardActions} from '../store/BoardSlice';
+import {BoardControls} from './BoardControls';
 
 export const App = () => {
 	const running = useSelector((state: RootState) => state.game.running);
@@ -21,5 +22,8 @@ export const App = () => {
 	return <div className="h-full flex flex-col">
 		<Navbar />
 		<Board />
+		<div className="lg:hidden h-16 flex flex-col justify-center">
+			<BoardControls />
+		</div>
 	</div>;
 };

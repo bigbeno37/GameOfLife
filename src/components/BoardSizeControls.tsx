@@ -15,7 +15,7 @@ export const BoardSizeControls = () => {
 			increment={() => dispatch(BoardActions.incrementX())}
 			decrement={() => dispatch(BoardActions.decrementX())}
 		/>
-		<span className="mx-8 text-white text-xl self-center">by</span>
+		<span className="mx-2 lg:mx-8 text-white text-xl self-center">by</span>
 		<NumberModifier
 			title="board rows"
 			value={boardY}
