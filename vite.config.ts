@@ -8,5 +8,6 @@ export default defineConfig({
 	// @ts-ignore
 	test: {
 		environment: 'jsdom'
-	}
+	},
+	base: '/gameoflife'
 });
