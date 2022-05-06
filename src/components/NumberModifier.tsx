@@ -18,7 +18,7 @@ export const NumberModifier = ({ title, value, minimum, increment, decrement }: 
 		>
 			<Minus />
 		</button>
-		<span className="text-2xl mx-4 text-white self-center">{value}</span>
+		<span className="text-2xl mx-4 text-white self-center" data-testid={`${title} value`}>{value}</span>
 		<button
 			className="btn btn-primary"
 			title={`Increment ${title}`}
