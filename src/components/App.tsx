@@ -1,14 +1,22 @@
 import {Navbar} from './Navbar';
 import {Board} from './Board';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store/store';
+import {BoardActions} from '../store/BoardSlice';
 
 export const App = () => {
-	// useEffect(() => {
-	// 	if (!state.running) return;
-	//
-	// 	const interval = setInterval(() => dispatch({ type: 'STEP' }), 1000/2);
-	//
-	// 	return () => clearInterval(interval);
-	// }, [state.running]);
+	const running = useSelector((state: RootState) => state.game.running);
+	const playbackRate = useSelector((state: RootState) => state.game.playbackRate);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!running) return;
+
+		const interval = setInterval(() => dispatch(BoardActions.tick()), 1000/playbackRate);
+
+		return () => clearInterval(interval);
+	}, [running, playbackRate, dispatch]);
 
 	return <div className="h-full flex flex-col">
 		<Navbar />
