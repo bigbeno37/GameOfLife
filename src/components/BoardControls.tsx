@@ -4,6 +4,9 @@ import {GameActions} from '../store/GameSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
 
+/**
+ * Handles the controls of the board, i.e. tick, play / pause and clear buttons.
+ */
 export const BoardControls = () => {
 	const running = useSelector((state: RootState) => state.game.running);
 

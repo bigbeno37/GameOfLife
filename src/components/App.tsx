@@ -13,6 +13,7 @@ export const App = () => {
 	const width = useSelector((state: RootState) => state.window.width);
 	const dispatch = useDispatch();
 
+	// Syncs the width of the browser window with the current value in the global store
 	useEffect(() => {
 		const handleResize = () => dispatch(WindowActions.setWidth(window.innerWidth));
 
@@ -21,6 +22,8 @@ export const App = () => {
 		return () => window.removeEventListener('resize', handleResize);
 	}, [dispatch]);
 
+	// If the user presses the play button, 'running' in the global store will be toggled on, and this handles
+	// activating an interval that will run a tick every specified amount of time
 	useEffect(() => {
 		if (!running) return;
 

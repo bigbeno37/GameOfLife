@@ -1,7 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export const initialState = {
+	/**
+	 * Whether the board should automatically run ticks every particular interval of time.
+	 */
 	running: false,
+
+	/**
+	 * Represents how many times a second a tick should be run.
+	 */
 	playbackRate: 1
 };
 

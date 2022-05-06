@@ -2,35 +2,41 @@ import {createSlice, Draft, PayloadAction} from '@reduxjs/toolkit';
 import {generateEmptyBoard, getBoardAfterCellToggle, getBoardAfterGeneration} from '../utils';
 
 const initialState = {
+	/**
+	 * Represents the current board. By default, this will be initialised to a 9x9 array of false values.
+	 */
 	value: generateEmptyBoard(9, 9),
 	size: {
-		x: 9,
-		y: 9
+		columns: 9,
+		rows: 9
 	}
 };
 
+/**
+ * Clears the board, i.e. sets all values to false.
+ */
 const clear = (state: Draft<typeof initialState>) => {
-	state.value = generateEmptyBoard(state.size.y, state.size.x);
+	state.value = generateEmptyBoard(state.size.rows, state.size.columns);
 };
 
 export const boardSlice = createSlice({
 	name: 'board',
 	initialState,
 	reducers: {
-		incrementX: state => {
-			state.size.x++;
+		addColumn: state => {
+			state.size.columns++;
 			clear(state);
 		},
-		incrementY: state => {
-			state.size.y++;
+		addRow: state => {
+			state.size.rows++;
 			clear(state);
 		},
-		decrementX: state => {
-			state.size.x--;
+		removeColumn: state => {
+			state.size.columns--;
 			clear(state);
 		},
-		decrementY: state => {
-			state.size.y--;
+		removeRow: state => {
+			state.size.rows--;
 			clear(state);
 		},
 		tick: state => {

@@ -1,5 +1,11 @@
 import {Board, Board as BoardType, Cell, Row} from './types';
 
+/**
+ * Generates a board of the given size with all Cells set to false, i.e. dead.
+ *
+ * @param rows How many rows to generate.
+ * @param columns How many columns to generate.
+ */
 export const generateEmptyBoard = (rows: number, columns: number): Board => {
 	const constructedBoard: Row[] = [];
 
@@ -16,7 +22,15 @@ export const generateEmptyBoard = (rows: number, columns: number): Board => {
 	return constructedBoard;
 };
 
-export const getNeighbours = (board: BoardType, cellIndex: number, rowIndex: number): number => {
+/**
+ * Given a Board and a particular Cell, this will determine how many alive neighbours that Cell has. This is used
+ * during a tick to determine whether a Cell survives. For the conditions, see {@link getBoardAfterGeneration}.
+ *
+ * @param board The current board.
+ * @param cellIndex The index of the Cell to use of the given Row.
+ * @param rowIndex The index of the Row the Cell resides in.
+ */
+export const getNeighbours = (board: Readonly<BoardType>, cellIndex: number, rowIndex: number): number => {
 	const maxY = board.length;
 	const maxX = board[0]?.length ?? 0;
 
@@ -41,7 +55,15 @@ export const getNeighbours = (board: BoardType, cellIndex: number, rowIndex: num
 	return neighbours;
 };
 
-export const getBoardAfterGeneration = (board: Board): Board => {
+/**
+ * Returns a new board with each Cell mapped based on the following conditions:
+ * 1. Any live cell with two or three live neighbours survives.
+ * 2. Any dead cell with three live neighbours becomes a live cell.
+ * 3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+ *
+ * @param board The Board to use.
+ */
+export const getBoardAfterGeneration = (board: Readonly<Board>): Board => {
 	const newBoard: BoardType = [];
 
 	board.forEach((row, rowIndex) => {
@@ -66,7 +88,14 @@ export const getBoardAfterGeneration = (board: Board): Board => {
 	return newBoard;
 };
 
-export const getBoardAfterCellToggle = (board: Board, cellIndex: number, rowIndex: number): Board => {
+/**
+ * Returns a Board with the given Cell toggled (i.e. if dead, made alive and vice versa)
+ *
+ * @param board The board to use.
+ * @param cellIndex The index of the Cell to use of the given Row.
+ * @param rowIndex The index of the Row the Cell resides in.
+ */
+export const getBoardAfterCellToggle = (board: Readonly<Board>, cellIndex: number, rowIndex: number): Board => {
 	const boardClone = [...board];
 	const rowClone = [...boardClone[rowIndex]];
 
