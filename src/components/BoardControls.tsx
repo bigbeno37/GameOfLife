@@ -9,7 +9,7 @@ export const BoardControls = () => {
 
 	const dispatch = useDispatch();
 
-	return <>
+	return <div className="flex flex-row justify-center">
 		<button
 			className="btn btn-secondary"
 			onClick={() => dispatch(BoardActions.tick())}
@@ -31,5 +31,5 @@ export const BoardControls = () => {
 		>
 			<Trash />
 		</button>
-	</>;
+	</div>;
 };
