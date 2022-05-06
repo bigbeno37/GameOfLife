@@ -9,7 +9,7 @@ export default defineConfig({
 	test: {
 		environment: 'jsdom'
 	},
-	base: '/gameoflife/',
+	base: '/gameoflife/docs/',
 	build: {
 		outDir: 'docs'
 	}
